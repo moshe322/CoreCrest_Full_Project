@@ -1,0 +1,213 @@
+<?php
+require_once __DIR__ . '/config/db.php';
+
+if(isset($_POST['submit_application'])){
+
+    $name=$_POST['name'];
+    $email=$_POST['email'];
+    $phone=$_POST['phone'];
+    $state=$_POST['state'];
+    $city=$_POST['city'];
+    $experience=$_POST['experience'];
+    $industry=$_POST['industry'];
+    $functional_area=$_POST['area'];
+    $role=$_POST['role'];
+    $company=$_POST['company'];
+    $designation=$_POST['designation'];
+
+    $resume="";
+
+    if(!empty($_FILES['resume']['name'])){
+
+        $resume=time()."_".$_FILES['resume']['name'];
+
+        move_uploaded_file(
+            $_FILES['resume']['tmp_name'],
+            __DIR__."/uploads/".$resume
+        );
+    }
+
+$sql="INSERT INTO job_applications
+(name,email,phone,state,city,experience,industry,functional_area,role_name,company,designation,resume)
+VALUES
+('$name','$email','$phone','$state','$city','$experience','$industry','$functional_area','$role','$company','$designation','$resume')";
+
+if(mysqli_query($conn,$sql)){
+
+    header("Location: jobs-openings.php");
+    exit;
+
+}else{
+
+    echo mysqli_error($conn);
+
+}
+
+}
+
+include("includes/header.php");
+?>
+
+<main>
+
+<section class="section contact__v2" id="contact">
+
+<div class="container">
+
+<div class="row d-flex justify-content-center">
+
+<div class="col-md-8">
+
+<div class="form-wrapper">
+
+<form method="POST"
+enctype="multipart/form-data"
+class="needs-validation"
+novalidate>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Name</label>
+<input class="form-control"
+type="text"
+name="name"
+required>
+</div>
+
+<div class="col-md-6">
+<label>Email</label>
+<input class="form-control"
+type="email"
+name="email"
+required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Phone</label>
+<input class="form-control"
+type="text"
+name="phone"
+required>
+</div>
+
+<div class="col-md-6">
+<label>State</label>
+
+<select class="form-select"
+name="state"
+required>
+
+<option value="">Select State</option>
+
+<option>Andhra Pradesh</option>
+<option>Telangana</option>
+<option>Tamil Nadu</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>City</label>
+<input class="form-control"
+type="text"
+name="city"
+required>
+</div>
+
+<div class="col-md-6">
+<label>Experience</label>
+<input class="form-control"
+type="number"
+name="experience"
+required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Industry</label>
+<input class="form-control"
+type="text"
+name="industry"
+required>
+</div>
+
+<div class="col-md-6">
+<label>Functional Area</label>
+<input class="form-control"
+type="text"
+name="area"
+required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Role</label>
+<input class="form-control"
+type="text"
+name="role"
+required>
+</div>
+
+<div class="col-md-6">
+<label>Company</label>
+<input class="form-control"
+type="text"
+name="company"
+required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Designation</label>
+<input class="form-control"
+type="text"
+name="designation"
+required>
+</div>
+
+<div class="col-md-6">
+<label>Resume</label>
+<input class="form-control"
+type="file"
+name="resume"
+required>
+</div>
+
+</div>
+
+<button
+class="btn btn-primary"
+type="submit"
+name="submit_application">
+Apply Now
+</button>
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+<?php include("includes/footer.php"); ?>

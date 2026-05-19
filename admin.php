@@ -1,220 +1,293 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CORECREST HR SERVICES PRIVATE LIMITED</title>
-    <link rel="apple-touch-icon" sizes="57x57" href="assets/images/fav/apple-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="assets/images/fav/apple-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="assets/images/fav/apple-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="assets/images/fav/apple-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="assets/images/fav/apple-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="assets/images/fav/apple-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="assets/images/fav/apple-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="assets/images/fav/apple-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="assets/images/fav/apple-icon-180x180.png">
-<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/images/fav/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="96x96" href="assets/images/fav/favicon-96x96.png">
-<link rel="icon" type="image/png" sizes="16x16" href="assets/images/fav/favicon-16x16.png">
-<link rel="manifest" href="/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
+<?php
+session_start();
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
-    <link href="assets/vendors/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendors/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="assets/vendors/glightbox/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendors/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="assets/vendors/aos/aos.css" rel="stylesheet">
-    <link href="assets/css/style.css" rel="stylesheet">
-    </head>
-  <body>
-    <div class="site-wrap">
-      <header class="fbs__net-navbar navbar navbar-expand-lg dark" aria-label="freebootstrap.net navbar">
-        <div class="container-fluid d-flex align-items-center justify-content-between">
-          <a class="navbar-brand w-auto" href="index.php">
-           <img class="logo dark img-fluid" src="assets/images/Core-Crest-logo.png" alt=""> 
-          <img class="logo light img-fluid" src="assets/images/Core-Crest-logo-small.png" alt="">
-            </a>
-          <div class="offcanvas offcanvas-start w-75" id="fbs__net-navbars" tabindex="-1" aria-labelledby="fbs__net-navbarsLabel">
-            <div class="offcanvas-header">
-              <div class="offcanvas-header-logo">
-                <a class="logo-link" id="fbs__net-navbarsLabel" href="index.php">
-                  <img class="logo dark img-fluid" src="assets/images/Core-Crest-logo.png" alt=""> 
-                <img class="logo light img-fluid" src="assets/images/Core-Crest-logo-small.png" alt=""></a>                
-              </div>
+if(!isset($_SESSION['user_id'])){
+    header("Location: login.php");
+    exit;
+}
 
-            </div>
+if($_SESSION['role'] != 'admin'){
+    header("Location: index.php");
+    exit;
+}
 
-          </div>
-          <div class="ms-auto w-auto">
-            <div class=""><a class="" href="">Logout</a>     
-            </div>
-            
-          </div>
-        </div>
-      </header>
+require_once __DIR__ . '/config/db.php';
 
-        <main>
-      <link href="https://cdn.datatables.net/2.3.8/css/dataTables.bootstrap5.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/responsive/3.0.8/css/responsive.bootstrap5.css" rel="stylesheet">
-    <!-- Page Title -->
-<!--     <div class="page-title light-background">
-      <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Contact</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.php">Home</a></li>
-            <li class="current">contact</li>
-          </ol>
-        </nav>
-      </div>
-    </div> --><!-- End Page Title -->
+$total_applications = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS total FROM job_applications")
+);
 
-    <section class="section contact__v2" id="contact" style="background-color:#f2edf3;">
-          <div class="container-fluid mb-3">
-           <div class="row">
-             <div class="col-md-4 mb-2">
-               <div class="card shadow">
-                 <div class="card-body">
-                   <h6>Resume Uploaded</h6>
-                   <div class="big-text">2,255</div>
-                 </div>
-               </div>
-             </div>
-             <div class="col-md-4 mb-2">
-               <div class="card shadow">
-                 <div class="card-body">
-                   <h6>Action required</h6>
-                   <div class="big-text">2,255</div>
-                 </div>
-               </div>
-             </div>
-             <div class="col-md-4 mb-2">
-               <div class="card shadow">
-                 <div class="card-body">
-                   <h6>Action Taken</h6>
-                   <div class="big-text">2,255</div>
-                 </div>
-               </div>
-             </div>
-             
-             
-           </div> 
-          </div>
+$total_contacts = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS total FROM contact_messages")
+);
 
+$total_users = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS total FROM users_logins_table")
+);
 
-          <div class="container-fluid">  
-                <div class="card shadow">
-        <div class="card-body">   
-            <div class="row">
-              <table id="example" class="table table-striped nowrap">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>E-mail</th>
-                <th>Mobile Number</th>
-                <th>State</th>
-                <th>City</th>
-                <th>Experience</th>
-                <th>Industry</th>
-                <th>Current Company</th>
-                <th>Designation</th>
-                <th>Download Resume</th>
-              
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Rajesh</td>
-                <td>chagalamarri85@gmail.com</td>
-                <td>9940353051</td>
-                <td>Tamilnadu</td>
-                <td>Chennai</td>
-                <td>10 Y</td>
-                <td>IT</td>
-                 <td>Not yet work</td>
-                  <td>Webdesigner</td>
-                   <td><button type="button" class="btn btn-primary btn-sm">Download <i class="bi bi-cloud-arrow-down-fill"></i></button></td>
-            </tr>
-            <tr>
-                <td>Mosess</td>
-                <td>chagalamarri85@gmail.com</td>
-                <td>9940353051</td>
-                <td>Tamilnadu</td>
-                <td>Chennai</td>
-                <td>10 Y</td>
-                <td>IT</td>
-                 <td>Not yet work</td>
-                  <td>Webdesigner</td>
-                   <td><button type="button" class="btn btn-primary btn-sm">Download <i class="bi bi-cloud-arrow-down-fill"></i></button></td>
-            </tr>
-            <tr>
-                <td>Rajan</td>
-                <td>chagalamarri85@gmail.com</td>
-                <td>9940353051</td>
-                <td>Tamilnadu</td>
-                <td>Chennai</td>
-                <td>10 Y</td>
-                <td>IT</td>
-                 <td>Not yet work</td>
-                  <td>Webdesigner</td>
-                   <td><button type="button" class="btn btn-primary btn-sm">Download <i class="bi bi-cloud-arrow-down-fill"></i></button></td>
-            </tr>
-            <tr>
-                <td>Sandeep</td>
-                <td>chagalamarri85@gmail.com</td>
-                <td>9940353051</td>
-                <td>Tamilnadu</td>
-                <td>Chennai</td>
-                <td>10 Y</td>
-                <td>IT</td>
-                 <td>Not yet work</td>
-                  <td>Webdesigner</td>
-                   <td><button type="button" class="btn btn-primary btn-sm">Download <i class="bi bi-cloud-arrow-down-fill"></i></button></td>
-            </tr>
-            <tr>
-                <td>Kumar</td>
-                <td>chagalamarri85@gmail.com</td>
-                <td>9940353051</td>
-                <td>Tamilnadu</td>
-                <td>Chennai</td>
-                <td>10 Y</td>
-                <td>IT</td>
-                 <td>Not yet work</td>
-                  <td>Webdesigner</td>
-                   <td><button type="button" class="btn btn-primary btn-sm">Download <i class="bi bi-cloud-arrow-down-fill"></i></button></td>
-            </tr>
-            
-        </tbody>
-    </table>
+$total_resumes = mysqli_fetch_assoc(
+    mysqli_query($conn, "SELECT COUNT(*) AS total FROM job_applications WHERE resume IS NOT NULL AND resume != ''")
+);
 
-            </div>
-          </div>
-                  </div>        
-      </div>
-        </section>
+include("includes/header.php");
+?>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
- <script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/2.3.8/js/dataTables.bootstrap5.js"></script>
-   <script src="https://cdn.datatables.net/responsive/3.0.8/js/dataTables.responsive.js"></script>
-    <script src="https://cdn.datatables.net/responsive/3.0.8/js/responsive.bootstrap5.js"></script>
+<main>
 
-        <script>
-          new DataTable('#example', {
-    responsive: true
-});
-        </script>
+<section class="section" style="background-color:#f2edf3;min-height:100vh;">
 
+<div class="container-fluid mb-4">
 
-  </body>
-</html>
-        
+<div class="row">
 
-                
-       
+<div class="col-md-3 mb-3">
+<div class="card shadow">
+<div class="card-body bg-primary text-white rounded">
+<h6>Total Applications</h6>
+<h2><?php echo $total_applications['total']; ?></h2>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow">
+<div class="card-body bg-success text-white rounded">
+<h6>Total Contacts</h6>
+<h2><?php echo $total_contacts['total']; ?></h2>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow">
+<div class="card-body bg-danger text-white rounded">
+<h6>Total Users</h6>
+<h2><?php echo $total_users['total']; ?></h2>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow">
+<div class="card-body bg-info text-white rounded">
+
+<h6>Total Uploaded Resumes</h6>
+
+<h2>
+<?php echo $total_resumes['total']; ?>
+</h2>
+
+<a href="uploaded-resumes.php" class="btn btn-light btn-sm mt-2">
+View Resumes
+</a>
+
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="container-fluid">
+
+<div class="card shadow mb-5">
+<div class="card-body">
+
+<h3 class="mb-3 text-primary">Job Applications</h3>
+
+<div class="table-responsive">
+
+<table id="applicationsTable" class="table table-bordered table-striped table-hover align-middle">
+
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Phone</th>
+<th>State</th>
+<th>City</th>
+<th>Experience</th>
+<th>Industry</th>
+<th>Functional Area</th>
+<th>Role</th>
+<th>Company</th>
+<th>Designation</th>
+<th>Resume</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php
+$applications = mysqli_query($conn, "SELECT * FROM job_applications ORDER BY id DESC");
+
+while($row = mysqli_fetch_assoc($applications)){
+?>
+
+<tr>
+
+<td><?php echo htmlspecialchars($row['id']); ?></td>
+<td><?php echo htmlspecialchars($row['name']); ?></td>
+<td><?php echo htmlspecialchars($row['email']); ?></td>
+<td><?php echo htmlspecialchars($row['phone']); ?></td>
+<td><?php echo htmlspecialchars($row['state']); ?></td>
+<td><?php echo htmlspecialchars($row['city']); ?></td>
+<td><?php echo htmlspecialchars($row['experience']); ?></td>
+<td><?php echo htmlspecialchars($row['industry']); ?></td>
+<td><?php echo htmlspecialchars($row['functional_area']); ?></td>
+<td><?php echo htmlspecialchars($row['role_name']); ?></td>
+<td><?php echo htmlspecialchars($row['company']); ?></td>
+<td><?php echo htmlspecialchars($row['designation']); ?></td>
+
+<td>
+<?php if(!empty($row['resume'])){ ?>
+<a class="btn btn-success btn-sm" href="uploads/<?php echo htmlspecialchars($row['resume']); ?>" download>
+Download
+</a>
+<?php }else{ ?>
+<span class="badge bg-danger">No Resume</span>
+<?php } ?>
+</td>
+
+<td><?php echo htmlspecialchars($row['created_at']); ?></td>
+
+</tr>
+
+<?php } ?>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+<div class="card shadow mb-5">
+<div class="card-body">
+
+<h3 class="mb-3 text-success">Contact Messages</h3>
+
+<div class="table-responsive">
+
+<table id="contactsTable" class="table table-bordered table-striped table-hover align-middle">
+
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Subject</th>
+<th>Message</th>
+<th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php
+$contacts = mysqli_query($conn, "SELECT * FROM contact_messages ORDER BY id DESC");
+
+while($c = mysqli_fetch_assoc($contacts)){
+?>
+
+<tr>
+<td><?php echo htmlspecialchars($c['id']); ?></td>
+<td><?php echo htmlspecialchars($c['name']); ?></td>
+<td><?php echo htmlspecialchars($c['email']); ?></td>
+<td><?php echo htmlspecialchars($c['subject']); ?></td>
+<td><?php echo htmlspecialchars($c['message']); ?></td>
+<td><?php echo htmlspecialchars($c['created_at']); ?></td>
+</tr>
+
+<?php } ?>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+<div class="card shadow">
+<div class="card-body">
+
+<h3 class="mb-3 text-danger">Login Users</h3>
+
+<div class="table-responsive">
+
+<table id="usersTable" class="table table-bordered table-striped table-hover align-middle">
+
+<thead class="table-dark">
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>Created At</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php
+$users = mysqli_query(
+    $conn,
+    "SELECT id,name,email,role,created_at FROM users_logins_table ORDER BY id DESC"
+);
+
+while($u = mysqli_fetch_assoc($users)){
+?>
+
+<tr>
+
+<td><?php echo htmlspecialchars($u['id']); ?></td>
+
+<td><?php echo htmlspecialchars($u['name']); ?></td>
+
+<td><?php echo htmlspecialchars($u['email']); ?></td>
+
+<td>
+<span class="badge bg-<?php echo $u['role']=='admin' ? 'danger' : 'success'; ?>">
+<?php echo htmlspecialchars($u['role']); ?>
+</span>
+</td>
+
+<td><?php echo htmlspecialchars($u['created_at']); ?></td>
+
+</tr>
+
+<?php } ?>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.3.8/js/dataTables.bootstrap5.js"></script>
+
+<script>
+new DataTable('#applicationsTable');
+new DataTable('#contactsTable');
+new DataTable('#usersTable');
+</script>
+
+<?php include("includes/footer.php"); ?>

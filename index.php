@@ -1,4 +1,6 @@
-<?php include("includes/header.php"); ?>
+<?php 
+require_once __DIR__ . '/config/db.php';
+include("includes/header.php"); ?>
         <main>
           <section class="hero__v6 section" id="home">
           <div class="container">

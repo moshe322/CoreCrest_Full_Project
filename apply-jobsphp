@@ -1,0 +1,174 @@
+<?php
+require_once __DIR__ . '/config/db.php';
+
+include("includes/header.php"); ?>
+        <main>
+      
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Contact</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.php">Home</a></li>
+            <li class="current">contact</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <section class="section contact__v2" id="contact">
+          <div class="container">
+            <div class="row d-flex justify-content-center">
+          <div class="col-md-8 ">
+             <div class="form-wrapper" data-aos="fade-up" data-aos-delay="300">
+                  <form id="contactForm" class="needs-validation apply-job-form" novalidate>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="mb-2" for="name">Name</label>
+                        <input class="form-control" id="name" type="text" name="name" required="">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="mb-2" for="email">Email</label>
+                        <input class="form-control" id="email" type="email" name="email" required="">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Mobile Number</label>
+                        <input class="form-control" id="phone" type="text" name="phone" required>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Select State</label>
+                        <select class="form-select " required aria-label="Default select example">
+                          <option value="">Select State *</option>
+                          <option value="andhra_pradesh">Andhra Pradesh</option>
+                          <option value="arunachal_pradesh">Arunachal Pradesh</option>
+                          <option value="assam">Assam</option>
+                          <option value="bihar">Bihar</option>
+                          <option value="chhattisgarh">Chhattisgarh</option>
+                          <option value="goa">Goa</option>
+                          <option value="gujarat">Gujarat</option>
+                          <option value="haryana">Haryana</option>
+                          <option value="himachal_pradesh">Himachal Pradesh</option>
+                          <option value="jharkhand">Jharkhand</option>
+                          <option value="karnataka">Karnataka</option>
+                          <option value="kerala">Kerala</option>
+                          <option value="madhya_pradesh">Madhya Pradesh</option>
+                          <option value="maharashtra">Maharashtra</option>t
+                          <option value="manipur">Manipur</option>
+                          <option value="meghalaya">Meghalaya/option>
+                          <option value="mizoram">Mizoram</option>
+                          <option value="nagaland">Nagaland</option>
+                          <option value="odisha">Odisha</option>
+                          <option value="punjab">Punjab</option>
+                          <option value="rajasthan">Rajasthan</option>
+                          <option value="sikkim">Sikkim</option>
+                          <option value="tamil_nadu">Tamil Nadu</option>
+                          <option value="telangana">Telangana</option>
+                          <option value="tripura">Tripura</option>
+                          <option value="uttar_pradesh">Uttar Pradesh</option>
+                          <option value="uttarakhand">Uttarakhand</option>
+                          <option value="west_bengal">West Bengal</option>
+                          <option value="andaman_nicobar">Andaman and Nicobar Islands</option>
+                          <option value="chandigarh">Chandigarh</option>
+                          <option value="dadra_nagar_haveli">Dadra and Nagar Haveli and Daman and Diu</option>
+                          <option value="delhi">Delhi</option>
+                          <option value="jammu_kashmir">Jammu and Kashmir</option>
+                          <option value="ladakh">Ladakh</option>
+                          <option value="lakshadweep">Lakshadweep</option>
+                          <option value="puducherry">Puducherry</option>
+                        </select>
+                      </div>
+                     
+                    </div>
+                    <div class="row mb-3">
+                       <div class="col-md-6">
+                        <label class="mb-2" for="subject">City</label>
+                        <input class="form-control" id="city" type="text" name="city" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Work experience (Years)</label>
+                        <input class="form-control" id="experience" type="number" name="experience" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Industry</label>
+                        <input class="form-control" id="industry" type="text" name="industry" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Functional Area</label>
+                        <input class="form-control" id="area" type="text" name="area" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Role</label>
+                        <input class="form-control" id="role" type="text" name="role" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Current Company</label>
+                        <input class="form-control" id="area" type="text" name="area" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-md-6">
+                        <label class="mb-2" for="subject">Designation</label>
+                        <input class="form-control" id="designation" type="text" name="designation" required>
+                      </div>
+                      <div class="col-md-6">
+                        <label for="formFile" class="form-label">Choose file</label>
+                        <input class="form-control" type="file" id="formFile" required>
+                      </div>
+                    </div>
+
+
+                  <div class="d-grid gap-2">
+                  <button class="btn btn-primary fw-semibold btn-lg" type="submit">Apply Now</button>
+                </div>
+                  </form>
+                  <div class="mt-3 d-none alert alert-success" id="successMessage">Message sent successfully!</div>
+                  <div class="mt-3 d-none alert alert-danger" id="errorMessage">Message sending failed. Please try again later.</div>
+                </div>
+          </div>
+        </div>
+          </div>
+        </section>
+
+    
+  <script>
+          (function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+        </script>
+        
+	<?php 
+include("includes/footer.php"); 
+
+#$query = "SELECT * FROM apply_jobs_page LIMIT 1";
+
+#$result = mysqli_query($conn, $query);
+
+#$page = mysqli_fetch_assoc($result);
+
+?>
+        
+       

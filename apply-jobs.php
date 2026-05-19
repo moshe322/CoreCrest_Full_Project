@@ -1,173 +1,264 @@
 <?php
-include("config/db.php");
-include("includes/header.php"); ?>
-        <main>
-      
-    <!-- Page Title -->
-    <div class="page-title light-background">
-      <div class="container d-lg-flex justify-content-between align-items-center">
-        <h1 class="mb-2 mb-lg-0">Contact</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.php">Home</a></li>
-            <li class="current">contact</li>
-          </ol>
-        </nav>
-      </div>
-    </div><!-- End Page Title -->
+session_start();
 
-    <section class="section contact__v2" id="contact">
-          <div class="container">
-            <div class="row d-flex justify-content-center">
-          <div class="col-md-8 ">
-             <div class="form-wrapper" data-aos="fade-up" data-aos-delay="300">
-                  <form id="contactForm" class="needs-validation apply-job-form" novalidate>
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <label class="mb-2" for="name">Name</label>
-                        <input class="form-control" id="name" type="text" name="name" required="">
-                      </div>
-                      <div class="col-md-6">
-                        <label class="mb-2" for="email">Email</label>
-                        <input class="form-control" id="email" type="email" name="email" required="">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Mobile Number</label>
-                        <input class="form-control" id="phone" type="text" name="phone" required>
-                      </div>
+if(!isset($_SESSION['user_id'])){
+    header("Location: login.php");
+    exit;
+}
 
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Select State</label>
-                        <select class="form-select " required aria-label="Default select example">
-                          <option value="">Select State *</option>
-                          <option value="andhra_pradesh">Andhra Pradesh</option>
-                          <option value="arunachal_pradesh">Arunachal Pradesh</option>
-                          <option value="assam">Assam</option>
-                          <option value="bihar">Bihar</option>
-                          <option value="chhattisgarh">Chhattisgarh</option>
-                          <option value="goa">Goa</option>
-                          <option value="gujarat">Gujarat</option>
-                          <option value="haryana">Haryana</option>
-                          <option value="himachal_pradesh">Himachal Pradesh</option>
-                          <option value="jharkhand">Jharkhand</option>
-                          <option value="karnataka">Karnataka</option>
-                          <option value="kerala">Kerala</option>
-                          <option value="madhya_pradesh">Madhya Pradesh</option>
-                          <option value="maharashtra">Maharashtra</option>t
-                          <option value="manipur">Manipur</option>
-                          <option value="meghalaya">Meghalaya/option>
-                          <option value="mizoram">Mizoram</option>
-                          <option value="nagaland">Nagaland</option>
-                          <option value="odisha">Odisha</option>
-                          <option value="punjab">Punjab</option>
-                          <option value="rajasthan">Rajasthan</option>
-                          <option value="sikkim">Sikkim</option>
-                          <option value="tamil_nadu">Tamil Nadu</option>
-                          <option value="telangana">Telangana</option>
-                          <option value="tripura">Tripura</option>
-                          <option value="uttar_pradesh">Uttar Pradesh</option>
-                          <option value="uttarakhand">Uttarakhand</option>
-                          <option value="west_bengal">West Bengal</option>
-                          <option value="andaman_nicobar">Andaman and Nicobar Islands</option>
-                          <option value="chandigarh">Chandigarh</option>
-                          <option value="dadra_nagar_haveli">Dadra and Nagar Haveli and Daman and Diu</option>
-                          <option value="delhi">Delhi</option>
-                          <option value="jammu_kashmir">Jammu and Kashmir</option>
-                          <option value="ladakh">Ladakh</option>
-                          <option value="lakshadweep">Lakshadweep</option>
-                          <option value="puducherry">Puducherry</option>
-                        </select>
-                      </div>
-                     
-                    </div>
-                    <div class="row mb-3">
-                       <div class="col-md-6">
-                        <label class="mb-2" for="subject">City</label>
-                        <input class="form-control" id="city" type="text" name="city" required>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Work experience (Years)</label>
-                        <input class="form-control" id="experience" type="number" name="experience" required>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Industry</label>
-                        <input class="form-control" id="industry" type="text" name="industry" required>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Functional Area</label>
-                        <input class="form-control" id="area" type="text" name="area" required>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Role</label>
-                        <input class="form-control" id="role" type="text" name="role" required>
-                      </div>
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Current Company</label>
-                        <input class="form-control" id="area" type="text" name="area" required>
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <div class="col-md-6">
-                        <label class="mb-2" for="subject">Designation</label>
-                        <input class="form-control" id="designation" type="text" name="designation" required>
-                      </div>
-                      <div class="col-md-6">
-                        <label for="formFile" class="form-label">Choose file</label>
-                        <input class="form-control" type="file" id="formFile" required>
-                      </div>
-                    </div>
+require_once __DIR__ . '/config/db.php';
 
+$success = "";
+$error = "";
 
-                  <div class="d-grid gap-2">
-                  <button class="btn btn-primary fw-semibold btn-lg" type="submit">Apply Now</button>
-                </div>
-                  </form>
-                  <div class="mt-3 d-none alert alert-success" id="successMessage">Message sent successfully!</div>
-                  <div class="mt-3 d-none alert alert-danger" id="errorMessage">Message sending failed. Please try again later.</div>
-                </div>
-          </div>
-        </div>
-          </div>
-        </section>
+if(isset($_POST['submit_application'])){
 
-    
-  <script>
-          (function () {
-  'use strict'
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $state = $_POST['state'];
+    $city = $_POST['city'];
+    $experience = $_POST['experience'];
+    $industry = $_POST['industry'];
+    $functional_area = $_POST['area'];
+    $role = $_POST['role'];
+    $company = $_POST['company'];
+    $designation = $_POST['designation'];
 
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  var forms = document.querySelectorAll('.needs-validation')
+    $resume = "";
 
-  // Loop over them and prevent submission
-  Array.prototype.slice.call(forms)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
+    if(!empty($_FILES['resume']['name'])){
+
+        $resume = time() . "_" . basename($_FILES['resume']['name']);
+
+        move_uploaded_file(
+            $_FILES['resume']['tmp_name'],
+            __DIR__ . "/uploads/" . $resume
+        );
+    }
+
+    $stmt = $conn->prepare("
+        INSERT INTO job_applications
+        (name,email,phone,state,city,experience,industry,functional_area,role_name,company,designation,resume)
+        VALUES
+        (?,?,?,?,?,?,?,?,?,?,?,?)
+    ");
+
+    $stmt->bind_param(
+        "ssssssssssss",
+        $name,
+        $email,
+        $phone,
+        $state,
+        $city,
+        $experience,
+        $industry,
+        $functional_area,
+        $role,
+        $company,
+        $designation,
+        $resume
+    );
+
+    if($stmt->execute()){
+
+        require __DIR__ . '/vendor/autoload.php';
+
+        $logged_user_email = $_SESSION['user_email'];
+        $resume_link = "https://crest.deployapp.online/uploads/" . $resume;
+
+        $mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+        try{
+
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+
+            $mail->Username = 'corecrest15@gmail.com';
+            $mail->Password = 'wbza oesv qtxi mhws';
+
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->setFrom('corecrest15@gmail.com','CoreCrest HR');
+            $mail->addAddress($logged_user_email);
+
+            $mail->isHTML(true);
+            $mail->Subject = 'CoreCrest Job Application Submitted Successfully';
+
+            $mail->Body = "
+                <h2>Your Job Application Submitted Successfully</h2>
+                <table border='1' cellpadding='8' cellspacing='0'>
+                    <tr><th>Name</th><td>$name</td></tr>
+                    <tr><th>Email</th><td>$email</td></tr>
+                    <tr><th>Phone</th><td>$phone</td></tr>
+                    <tr><th>State</th><td>$state</td></tr>
+                    <tr><th>City</th><td>$city</td></tr>
+                    <tr><th>Experience</th><td>$experience</td></tr>
+                    <tr><th>Industry</th><td>$industry</td></tr>
+                    <tr><th>Functional Area</th><td>$functional_area</td></tr>
+                    <tr><th>Role</th><td>$role</td></tr>
+                    <tr><th>Company</th><td>$company</td></tr>
+                    <tr><th>Designation</th><td>$designation</td></tr>
+                    <tr><th>Resume</th><td><a href='$resume_link'>Download Resume</a></td></tr>
+                </table>
+            ";
+
+            $mail->send();
+
+        }catch(Exception $e){
+            error_log($mail->ErrorInfo);
         }
 
-        form.classList.add('was-validated')
-      }, false)
-    })
-})()
-        </script>
-        
-	<?php 
-include("includes/footer.php"); 
+        $success = "Your data submitted successfully";
 
-$query = "SELECT * FROM apply_jobs_page LIMIT 1";
+    }else{
+        $error = "Data not submitted. Please try again.";
+    }
+}
 
-$result = mysqli_query($conn, $query);
-
-$page = mysqli_fetch_assoc($result);
-
+include("includes/header.php");
 ?>
-        
-       
+
+<main>
+
+<section class="section contact__v2" id="contact">
+
+<div class="container">
+
+<div class="row d-flex justify-content-center">
+
+<div class="col-md-8">
+
+<div class="form-wrapper">
+
+<?php if($success){ ?>
+<div id="successMessage" class="alert alert-success text-center">
+<?php echo $success; ?>
+</div>
+
+<script>
+setTimeout(function(){
+    var msg = document.getElementById("successMessage");
+    if(msg){
+        msg.style.display = "none";
+    }
+}, 2000);
+
+</script>
+<?php } ?>
+<?php if($error){ ?>
+<div class="alert alert-danger text-center">
+<?php echo $error; ?>
+</div>
+<?php } ?>
+
+<form method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Name</label>
+<input class="form-control" type="text" name="name" required>
+</div>
+
+<div class="col-md-6">
+<label>Email</label>
+<input class="form-control" type="email" name="email" value="<?php echo htmlspecialchars($_SESSION['user_email']); ?>" required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Phone</label>
+<input class="form-control" type="text" name="phone" required>
+</div>
+
+<div class="col-md-6">
+<label>State</label>
+<select class="form-select" name="state" required>
+<option value="">Select State</option>
+<option>Andhra Pradesh</option>
+<option>Telangana</option>
+<option>Tamil Nadu</option>
+<option>Karnataka</option>
+<option>Maharashtra</option>
+<option>Delhi</option>
+</select>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>City</label>
+<input class="form-control" type="text" name="city" required>
+</div>
+
+<div class="col-md-6">
+<label>Experience</label>
+<input class="form-control" type="number" name="experience" required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Industry</label>
+<input class="form-control" type="text" name="industry" required>
+</div>
+
+<div class="col-md-6">
+<label>Functional Area</label>
+<input class="form-control" type="text" name="area" required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Role</label>
+<input class="form-control" type="text" name="role" required>
+</div>
+
+<div class="col-md-6">
+<label>Company</label>
+<input class="form-control" type="text" name="company" required>
+</div>
+
+</div>
+
+<div class="row mb-3">
+
+<div class="col-md-6">
+<label>Designation</label>
+<input class="form-control" type="text" name="designation" required>
+</div>
+
+<div class="col-md-6">
+<label>Resume</label>
+<input class="form-control" type="file" name="resume" required>
+</div>
+
+</div>
+
+<button class="btn btn-primary" type="submit" name="submit_application">
+Apply Now
+</button>
+
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+<?php include("includes/footer.php"); ?>
